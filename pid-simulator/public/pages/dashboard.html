@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador — PID Simulator</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">PID Simulator</div>
+    <nav>
+      <span class="disabled" title="Disponível na Etapa 7">Histórico</span>
+      <button class="ghost" onclick="logout()">Sair</button>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <div class="plant-selector">
+      <button class="plant-option active" data-plant="tank">Tanque de água</button>
+      <button class="plant-option" data-plant="massSpringDamper">Massa-mola-amortecedor</button>
+      <button class="plant-option" data-plant="dcMotor">Motor DC</button>
+      <button class="plant-option" data-plant="servoMotor">Servomotor</button>
+    </div>
+
+    <div class="config-grid">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Parâmetros da planta</h2>
+          <a class="btn-info" id="plant-info-link" href="plant-info.html?plant=tank">Descrição</a>
+        </div>
+        <div id="plant-params-fields"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Ganhos do controlador</h2>
+        <div id="pid-params-fields"></div>
+      </section>
+    </div>
+
+    <div class="error-message" id="simulate-error"></div>
+
+    <div class="simulate-row">
+      <button id="simulate-btn">Simular</button>
+    </div>
+
+    <section class="results-panel" id="results-panel">
+      <p class="empty-state" id="results-empty">Configure a planta e clique em Simular para ver a resposta aqui.</p>
+
+      <div class="results-content" id="results-content" hidden>
+        <div class="anim-box">
+          <canvas id="plant-canvas" role="img" aria-label="Animação da planta simulada"></canvas>
+          <div class="anim-controls">
+            <button type="button" class="ghost anim-btn" id="anim-play">Pausar</button>
+            <button type="button" class="ghost anim-btn" id="anim-restart">Reiniciar</button>
+            <input type="range" id="anim-slider" min="0" max="0" value="0" step="1" aria-label="Tempo da simulação">
+            <span class="anim-time mono" id="anim-time">t = 0.00 s</span>
+          </div>
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-box">
+            <canvas id="response-chart"></canvas>
+          </div>
+          <div class="chart-box">
+            <canvas id="control-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="metrics-grid" id="metrics-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
